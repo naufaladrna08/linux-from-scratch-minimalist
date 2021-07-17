@@ -35,4 +35,24 @@ proc            /proc           proc    defaults        0      0
 sysfs           /sys            sysfs   defaults        0      0
 devpts          /dev/pts        devpts  gid=4,mode=620  0      0
 tmpfs           /dev/shm        tmpfs   defaults        0      0
-EOF"
+EOF
+echo "Creatin /etc/profile..."
+cat > ${MLFS_PROFILE}/etc/profile << "EOF"
+export PATH=/bin:/usr/bin
+
+if [ `id -u` -eq 0 ] ; then
+        PATH=/bin:/sbin:/usr/bin:/usr/sbin
+        unset HISTFILE
+fi
+
+
+# Set up some environment variables.
+export USER=`id -un`
+export LOGNAME=$USER
+export HOSTNAME=`/bin/hostname`
+export HISTSIZE=1000
+export HISTFILESIZE=1000
+export PAGER='/bin/more '
+export EDITOR='/bin/vi'
+EOF
+
