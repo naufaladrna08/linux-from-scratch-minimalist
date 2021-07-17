@@ -141,3 +141,19 @@ video[0-9]      root:video 0660 >v4l/
 usbdev[0-9].[0-9]       root:root 0660 */lib/mdev/usbdev
 usbdev[0-9].[0-9]_.*    root:root 0660
 EOF
+echo "Creating GRUB configuration"
+cat > ${MLFS_ROOT}/boot/grub/grub.cfg<< "EOF"
+
+set default=0
+set timeout=5
+
+set root=(hd0,1)
+
+menuentry "MLFS" {
+        linux   /boot/vmlinuz-4.16.3 root=/dev/sda1 ro quiet
+}
+EOF
+echo "Give permissions"
+touch ${MLFS_ROOT}/var/run/utmp ${MLFS_ROOT}/var/log/{btmp,lastlog,wtmp}
+chmod -v 664 ${MLFS_ROOT}/var/run/utmp ${MLFS_ROOT}/var/log/lastlog
+
