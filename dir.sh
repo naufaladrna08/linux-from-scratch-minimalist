@@ -3,6 +3,7 @@
 # Set TLFS root
 echo "Input TLFS Root: " 
 	read TLFS_ROOT
+	echo $TLFS_ROOT > root
 echo "Setting up TLFS Root"
 
 # Create FHS
@@ -15,6 +16,9 @@ mkdir -p ${TLFS_ROOT}/lib/{firmware,modules}
 mkdir -p ${TLFS_ROOT}/media/{floppy,cdrom}
 mkdir -p ${TLFS_ROOT}/var/{lock,log,mail,run,spool}
 mkdir -p ${TLFS_ROOT}/var/{opt,cache,lib/{misc,locate},local}
+mkdir -p ${TLFS_ROOT}/usr/{bin,include,lib,sbin,src}
+mkdir -p ${TLFS_ROOT}/usr/share/{doc,info,locale,man,misc,terminfo,zoneinfo}
+mkdir -p ${TLFS_ROOT}/usr/share/man/man/{1,2,3,4,5,6,7,8}
 mkdir -p ${TLFS_ROOT}/usr/local/{bin,include,lib,sbin,src}
 mkdir -p ${TLFS_ROOT}/usr/local/share/{doc,info,locale,man,misc,terminfo,zoneinfo}
 mkdir -p ${TLFS_ROOT}/usr/local/share/man/man/{1,2,3,4,5,6,7,8}
