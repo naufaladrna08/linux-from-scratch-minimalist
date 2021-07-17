@@ -1,8 +1,8 @@
-# Minimal Linux From Scratch
+# Tiny Linux From Scratch
 
 ##### Pendahuluan
 
-Minimal Linux From Scratch adalah versi sederhana dari Linux from Scratch (LFS). Minimal Linux from Scratch (MLFS) menyediakan paket-paket dasar untuk membuat kernel Linux dapat bekerja pada perangkat minimum. MLFS berisi kernel Linux, compiler bahasa C, bash, busybox, dll.
+Tiny Linux From Scratch adalah versi sederhana dari Linux from Scratch (LFS). Tiny Linux from Scratch (TLFS) menyediakan paket-paket dasar untuk membuat kernel Linux dapat bekerja pada perangkat minimum. MLFS berisi kernel Linux, compiler bahasa C, bash, busybox, dll.
 
 ##### Alat
 

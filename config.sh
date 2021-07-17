@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Set MLFS root
+# Set TLFS root
 echo "[Configuration Files]"
 
-echo "Input MLFS Root: " 
-	read MLFS_ROOT
-echo "Setting up MLFS Root"
+echo "Input TLFS Root: " 
+	read TLFS_ROOT
+echo "Setting up TLFS Root"
 
 echo "Creating /etc/passwd..."
-cat > ${MLFS_ROOT}/etc/passwd << "EOF"
+cat > ${TLFS_ROOT}/etc/passwd << "EOF"
 root::0:0:root:/root:/bin/ash
 EOF
 echo "Creating /etc/group..."
-cat > ${MLFS_ROOT}/etc/group << "EOF"
+cat > ${TLFS_ROOT}/etc/group << "EOF"
 root:x:0:
 bin:x:1:
 sys:x:2:
@@ -26,7 +26,7 @@ utmp:x:13:
 usb:x:14:
 EOF
 echo "Creating /etc/passwd..."
-cat > ${MLFS_ROOT}/etc/fstab << "EOF"
+cat > ${TLFS_ROOT}/etc/fstab << "EOF"
 # file system  mount-point  type   options          dump  fsck
 #                                                         order
 
@@ -37,7 +37,7 @@ devpts          /dev/pts        devpts  gid=4,mode=620  0      0
 tmpfs           /dev/shm        tmpfs   defaults        0      0
 EOF
 echo "Creatin /etc/profile..."
-cat > ${MLFS_ROOT}/etc/profile << "EOF"
+cat > ${TLFS_ROOT}/etc/profile << "EOF"
 export PATH=/bin:/usr/bin
 
 if [ `id -u` -eq 0 ] ; then
@@ -55,17 +55,17 @@ export HISTFILESIZE=1000
 export PAGER='/bin/more '
 export EDITOR='/bin/vi'
 EOF
-echo "Enter username for MLFS"
+echo "Enter username for TLFS"
 read username
 echo "Creating /etc/HOSTNAME..."
-echo $username > ${MLFS_ROOT}/etc/HOSTNAME 
+echo $username > ${TLFS_ROOT}/etc/HOSTNAME 
 echo "Creating /etc/issue.."
-cat > ${MLFS_ROOT}/etc/issue<< "EOF"
-Minimal Linux From Scratch (Linux \r)
+cat > ${TLFS_ROOT}/etc/issue<< "EOF"
+Tiny Linux From Scratch (Linux \r)
 
 EOF
 echo "Creating /etc/inittab"
-cat > ${MLFS_ROOT}/etc/inittab<< "EOF"
+cat > ${TLFS_ROOT}/etc/inittab<< "EOF"
 ::sysinit:/etc/rc.d/startup
 
 tty1::respawn:/sbin/getty 38400 tty1
@@ -79,7 +79,7 @@ tty6::respawn:/sbin/getty 38400 tty6
 ::ctrlaltdel:/sbin/reboot
 EOF
 echo "Creating /etc/mdev.conf..."
-cat > ${MLFS_ROOT}/etc/mdev.conf<< "EOF"
+cat > ${TLFS_ROOT}/etc/mdev.conf<< "EOF"
 # Devices:
 # Syntax: %s %d:%d %s
 # devices user:group mode
@@ -142,19 +142,19 @@ usbdev[0-9].[0-9]       root:root 0660 */lib/mdev/usbdev
 usbdev[0-9].[0-9]_.*    root:root 0660
 EOF
 echo "Creating GRUB configuration"
-cat > ${MLFS_ROOT}/boot/grub/grub.cfg<< "EOF"
+cat > ${TLFS_ROOT}/boot/grub/grub.cfg<< "EOF"
 
 set default=0
 set timeout=5
 
 set root=(hd0,1)
 
-menuentry "MLFS" {
+menuentry "TLFS" {
         linux   /boot/vmlinuz-4.16.3 root=/dev/sda1 ro quiet
 }
 EOF
 echo "Give permissions"
-touch ${MLFS_ROOT}/var/run/utmp ${MLFS_ROOT}/var/log/{btmp,lastlog,wtmp}
-chmod -v 664 ${MLFS_ROOT}/var/run/utmp ${MLFS_ROOT}/var/log/lastlog
+touch ${TLFS_ROOT}/var/run/utmp ${TLFS_ROOT}/var/log/{btmp,lastlog,wtmp}
+chmod -v 664 ${TLFS_ROOT}/var/run/utmp ${TLFS_ROOT}/var/log/lastlog
 
 echo "Done"
