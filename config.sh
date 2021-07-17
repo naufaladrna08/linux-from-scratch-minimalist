@@ -37,7 +37,7 @@ devpts          /dev/pts        devpts  gid=4,mode=620  0      0
 tmpfs           /dev/shm        tmpfs   defaults        0      0
 EOF
 echo "Creatin /etc/profile..."
-cat > ${MLFS_PROFILE}/etc/profile << "EOF"
+cat > ${MLFS_ROOT}/etc/profile << "EOF"
 export PATH=/bin:/usr/bin
 
 if [ `id -u` -eq 0 ] ; then
