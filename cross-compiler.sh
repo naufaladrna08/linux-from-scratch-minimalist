@@ -53,3 +53,39 @@ cp -v ../binutils-2.30/include/libiberty.h ${TLFS_ROOT}/usr/include
 
 echo "Done"
 # End of binutils
+
+cd ..
+
+# GCC Static
+echo "Compiling GCC (statc)"
+
+echo "Extracting GCC, please wait..."
+tar -xf sources/gcc-7.3.0.tar.xz
+tar -xf sources/gmp-6.1.2.tar.bz2
+tar -xf sources/mpfr-4.0.1.tar.xz
+tar -xf sources/mpc-1.1.0.tar.gz
+mv gmp-6.1.2 gcc-7.3.0/gmp
+mv mpfr-4.0.1 gcc-7.3.0/mpfr 
+mv mpc-1.1.0 gcc-7.3.0/mpc 
+
+mkdir gcc-static
+cd gcc-static
+
+AR=ar LDFLAGS="-Wl,-rpath,${TLFS_ROOT}/xtools/lib" \
+../gcc-7.3.0/configure --prefix=${TLFS_ROOT}/xtools \
+--build=${T_HOST} --host=${T_HOST} \
+--target=${T_TARGET} \
+--with-sysroot=${TLFS_ROOT}/target --disable-nls \
+--disable-shared \
+--with-mpfr-include=$(pwd)/../gcc-7.3.0/mpfr/src \
+--with-mpfr-lib=$(pwd)/mpfr/src/.libs \
+--without-headers --with-newlib --disable-decimal-float \
+--disable-libgomp --disable-libmudflap --disable-libssp \
+--disable-threads --enable-languages=c,c++ \
+--disable-multilib --with-arch=${T_CPU}
+make all-gcc all-target-libgcc && make install-gcc install-target-libgcc
+ln -vs libgcc.a `${T_TARGET}-gcc -print-libgcc-file-name | sed 's/libgcc/&_eh/'`
+
+# End of Gcc static
+
+cd ..
