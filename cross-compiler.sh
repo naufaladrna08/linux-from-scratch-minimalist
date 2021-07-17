@@ -115,6 +115,38 @@ RANLIB="${T_TARGET}-ranlib" CFLAGS="-O2" \
 --with-headers=${TLFS_ROOT}/usr/include \
 --cache-file=config.cache
 
-make && make install_root=${LJOS}/ install
+make && make install_root=${TLFS_ROOT}/ install
+
+# End of Glibc
 
 cd ..
+
+# GCC (Final)
+
+mkdir gcc-build
+cd gcc-build
+
+AR=ar LDFLAGS="-Wl,-rpath,${TLFS_ROOT}/xtools/lib" \
+../gcc-7.3.0/configure --prefix=${TLFS_ROOT}/xtools \
+--build=${T_HOST} --target=${T_TARGET} \
+--host=${T_HOST} --with-sysroot=${TLFS_ROOT} \
+--disable-nls --enable-shared \
+--enable-languages=c,c++ --enable-c99 \
+--enable-long-long \
+--with-mpfr-include=$(pwd)/../gcc-7.3.0/mpfr/src \
+--with-mpfr-lib=$(pwd)/mpfr/src/.libs \
+--disable-multilib --with-arch=${T_CPU}
+make && make install
+cp -v ${TLFS_ROOT}/xtools/${T_TARGET}/lib64/libgcc_s.so.1 ${TLFS_ROOT}/lib64
+
+echo "Setting up cross compiler"
+
+export CC="${T_TARGET}-gcc"
+export CXX="${T_TARGET}-g++"
+export CPP="${T_TARGET}-gcc -E"
+export AR="${T_TARGET}-ar"
+export AS="${T_TARGET}-as"
+export LD="${T_TARGET}-ld"
+export RANLIB="${T_TARGET}-ranlib"
+export READELF="${T_TARGET}-readelf"
+export STRIP="${T_TARGET}-strip" 
