@@ -38,7 +38,7 @@ cp -r dest/include/* ${TLFS_ROOT}/usr/include
 echo "Compiling binutils"
 
 echo "Extracting binutils, please wait..."
-# tar -xf sources/binutils-2.30.tar.xz
+tar -xf sources/binutils-2.30.tar.xz
 
 mkdir binutils-build
 cd binutils-build
