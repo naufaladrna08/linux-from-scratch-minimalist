@@ -55,4 +55,12 @@ export HISTFILESIZE=1000
 export PAGER='/bin/more '
 export EDITOR='/bin/vi'
 EOF
+echo "Enter username for MLFS"
+read username
+echo "Creating /etc/HOSTNAME..."
+echo $username > ${MLFS_ROOT}/etc/HOSTNAME 
+echo "Creating /etc/issue.."
+cat > ${MLFS_ROOT}/etc/issue<< "EOF"
+Minimal Linux From Scratch (Linux \r)
 
+EOF
