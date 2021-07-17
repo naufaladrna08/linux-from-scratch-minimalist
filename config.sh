@@ -157,3 +157,4 @@ echo "Give permissions"
 touch ${MLFS_ROOT}/var/run/utmp ${MLFS_ROOT}/var/log/{btmp,lastlog,wtmp}
 chmod -v 664 ${MLFS_ROOT}/var/run/utmp ${MLFS_ROOT}/var/log/lastlog
 
+echo "Done"
