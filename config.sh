@@ -64,3 +64,18 @@ cat > ${MLFS_ROOT}/etc/issue<< "EOF"
 Minimal Linux From Scratch (Linux \r)
 
 EOF
+echo "Creating /etc/inittab"
+cat > ${MLFS_ROOT}/etc/inittab<< "EOF"
+::sysinit:/etc/rc.d/startup
+
+tty1::respawn:/sbin/getty 38400 tty1
+tty2::respawn:/sbin/getty 38400 tty2
+tty3::respawn:/sbin/getty 38400 tty3
+tty4::respawn:/sbin/getty 38400 tty4
+tty5::respawn:/sbin/getty 38400 tty5
+tty6::respawn:/sbin/getty 38400 tty6
+
+::shutdown:/etc/rc.d/shutdown
+::ctrlaltdel:/sbin/reboot
+EOF
+
