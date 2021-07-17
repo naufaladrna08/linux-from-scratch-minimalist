@@ -34,6 +34,8 @@ make ARCH=${T_ARCH} headers_check && make ARCH=${T_ARCH} INSTALL_HDR_PATH=dest h
 cp -r dest/include/* ${TLFS_ROOT}/usr/include
 # End of Kernel headers
 
+cd ..
+
 # Binutils
 echo "Compiling binutils"
 
