@@ -150,3 +150,12 @@ export LD="${T_TARGET}-ld"
 export RANLIB="${T_TARGET}-ranlib"
 export READELF="${T_TARGET}-readelf"
 export STRIP="${T_TARGET}-strip" 
+
+echo "Removing unnecessary files"
+
+cd ..
+rm -rf gcc-7.3.0
+rm -rf gcc-static
+rm -rf gcc-final
+rm -rf glibc-2.27
+rm -rf binutils-2.30
