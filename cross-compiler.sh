@@ -111,16 +111,8 @@ function glibc() {
 	echo "libc_cv_ssp=no" >> config.cache
 	echo "libc_cv_ssp_strong=no" >> config.cache
 
-	BUILD_CC="gcc" CC="${T_TARGET}-gcc" \
-	AR="${T_TARGET}-ar" \
-	RANLIB="${T_TARGET}-ranlib" CFLAGS="-O2" \
-	../glibc-2.27/configure --prefix=/usr \
-	--host=${T_TARGET} --build=${T_HOST} \
-	--disable-profile --enable-add-ons --with-tls \
-	--enable-kernel=2.6.32 --with-__thread \
-	--with-binutils=${TLFS_ROOT}/xtools/bin \
-	--with-headers=${TLFS_ROOT}/usr/include \
-	--cache-file=config.cache
+	BUILD_CC="gcc" CC="${T_TARGET}-gcc" AR="${T_TARGET}-ar" \
+	RANLIB="${T_TARGET}-ranlib" CFLAGS="-O2" ../glibc-2.27/configure --prefix=/usr --host=${T_TARGET} --build=${T_HOST} --disable-profile --enable-add-ons --with-tls --enable-kernel=2.6.32 --with-__thread --with-binutils=${TLFS_ROOT}/xtools/bin --with-headers=${TLFS_ROOT}/usr/include --cache-file=config.cache
 
 	make && make install_root=${TLFS_ROOT}/ install
 
