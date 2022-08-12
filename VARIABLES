@@ -1,6 +1,6 @@
 set +h
 umask 022
-export TLFS=~/inos
+export TLFS=/mnt/inos
 export LC_ALL=POSIX
 export PATH=${TLFS}/xtools/bin:/bin:/usr/bin
 unset CFLAGS
